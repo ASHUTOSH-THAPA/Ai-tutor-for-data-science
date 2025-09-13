@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Demo | Explainable AI Tutor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+            --get: rgba(56, 161, 105, 0.2);
+            --post: rgba(66, 153, 225, 0.2);
+            --put: rgba(237, 137, 54, 0.2);
+            --delete: rgba(229, 62, 62, 0.2);
+        }
+
+        .dark-mode {
+            --text: #f3f4f6;
+            --text-light: #d1d5db;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.9);
+            --glass-border: rgba(30, 41, 59, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 80% 20%, rgba(99, 102, 241, 0.15) 0, transparent 60%),
+                radial-gradient(at 20% 80%, rgba(6, 182, 212, 0.15) 0, transparent 60%);
+            padding: 20px;
+        }
+
+        .dark-mode body {
+            background-image: 
+                radial-gradient(at 80% 20%, rgba(99, 102, 241, 0.1) 0, transparent 60%),
+                radial-gradient(at 20% 80%, rgba(6, 182, 212, 0.1) 0, transparent 60%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.25);
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .endpoint {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .method {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .method-get {
+            background: var(--get);
+            color: #38a169;
+        }
+
+        .method-post {
+            background: var(--post);
+            color: #4299e1;
+        }
+
+        .method-put {
+            background: var(--put);
+            color: #ed8936;
+        }
+
+        .method-delete {
+            background: var(--delete);
+            color: #e53e3e;
+        }
+
+        .url {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .param {
+            color: #ff79c6;
+        }
+
+        .string {
+            color: #f1fa8c;
+        }
+
+        .number {
+            color: #bd93f9;
+        }
+
+        .boolean {
+            color: #ff79c6;
+        }
+
+        .response-area {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 20px 0;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .try-it {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: var(--card-bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dark-mode .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .api-explanation {
+            margin: 40px 0;
+        }
+
+        .api-explanation h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .api-explanation p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .api-explanation ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .api-explanation li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <span>Explainable AI Tutor</span>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn btn-icon" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <h1>RESTful API Demo</h1>
+            <p class="subtitle">Learn how to interact with the Explainable AI Tutor API through this interactive demo</p>
+
+            <div class="api-explanation">
+                <h2>What is a RESTful API?</h2>
+                <p>A RESTful API is an application programming interface that follows the constraints of REST (Representational State Transfer) architecture. REST APIs use HTTP requests to perform CRUD (Create, Read, Update, Delete) operations on resources.</p>
+                
+                <p>Our API uses standard HTTP methods:</p>
+                <ul>
+                    <li><strong>GET</strong> - Retrieve resources</li>
+                    <li><strong>POST</strong> - Create new resources</li>
+                    <li><strong>PUT</strong> - Update existing resources</li>
+                    <li><strong>DELETE</strong> - Remove resources</li>
+                </ul>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" data-tab="datasets">Datasets</div>
+                <div class="tab" data-tab="models">Models</div>
+                <div class="tab" data-tab="explanations">Explanations</div>
+                <div class="tab" data-tab="tutor">AI Tutor</div>
+            </div>
+
+            <div class="demo-container">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h2 class="card-title">API Endpoints</h2>
+                    </div>
+
+                    <div id="endpoints-datasets" class="endpoints-section">
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/datasets</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/datasets</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/datasets/{id}</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-put">PUT</span>
+                            <span class="url">/api/datasets/{id}</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-delete">DELETE</span>
+                            <span class="url">/api/datasets/{id}</span>
+                        </div>
+                    </div>
+
+                    <div id="endpoints-models" class="endpoints-section" style="display: none;">
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/models</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/models</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/models/{id}</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/models/{id}/train</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-delete">DELETE</span>
+                            <span class="url">/api/models/{id}</span>
+                        </div>
+                    </div>
+
+                    <div id="endpoints-explanations" class="endpoints-section" style="display: none;">
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/models/{id}/explanations</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/models/{id}/explanations/shap</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/models/{id}/explanations/lime</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/explanations/{id}</span>
+                        </div>
+                    </div>
+
+                    <div id="endpoints-tutor" class="endpoints-section" style="display: none;">
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/tutor/explain</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-post">POST</span>
+                            <span class="url">/api/tutor/chat</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/tutor/sessions</span>
+                        </div>
+                        <div class="endpoint">
+                            <span class="method method-get">GET</span>
+                            <span class="url">/api/tutor/sessions/{id}</span>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+// Example: Getting all datasets
+fetch('/api/datasets', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_API_TOKEN'
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Try It Out</h2>
+                    </div>
+
+                    <div class="try-it">
+                        <div class="input-group">
+                            <label for="api-method">HTTP Method</label>
+                            <select id="api-method">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="api-url">Endpoint URL</label>
+                            <input type="text" id="api-url" value="/api/datasets">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="api-body">Request Body (JSON)</label>
+                            <textarea id="api-body">{
+  "name": "My Dataset",
+  "description": "Sample dataset for testing",
+  "file_path": "/data/sample.csv"
+}</textarea>
+                        </div>
+
+                        <button class="btn btn-primary" id="send-request">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Request
+                        </button>
+
+                        <div class="response-area" id="api-response">
+// Response will appear here
+{
+  "status": "waiting_for_request"
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-explanation">
+                <h2>How to Use the API</h2>
+                <p>To use the Explainable AI Tutor API in your application, you need to:</p>
+                <ol>
+                    <li>Obtain an API key from your account settings</li>
+                    <li>Include the API key in the Authorization header as a Bearer token</li>
+                    <li>Make HTTP requests to the appropriate endpoints</li>
+                    <li>Handle the JSON responses in your application</li>
+                </ol>
+
+                <p>All API responses follow a consistent format:</p>
+                <div class="code-block">
+{
+  "status": "success" | "error",
+  "message": "Descriptive message",
+  "data": { ... } | [ ... ],
+  "timestamp": "2023-07-15T10:30:00Z"
+}
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Explainable AI Tutor API Demo | Built with ❤️ for developers</p>
+            <p>© 2023 Explainable AI Tutor. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const endpointsSections = document.querySelectorAll('.endpoints-section');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show relevant endpoints
+                endpointsSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.getElementById(`endpoints-${tabName}`).style.display = 'block';
+                
+                // Update try it URL
+                document.getElementById('api-url').value = `/api/${tabName}`;
+            });
+        });
+
+        // Mock API response
+        document.getElementById('send-request').addEventListener('click', () => {
+            const method = document.getElementById('api-method').value;
+            const url = document.getElementById('api-url').value;
+            const body = document.getElementById('api-body').value;
+            
+            const responseArea = document.getElementById('api-response');
+            
+            // Show loading state
+            responseArea.textContent = 'Sending request...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                let response;
+                
+                if (url.includes('/datasets')) {
+                    if (method === 'GET') {
+                        response = {
+                            status: "success",
+                            message: "Datasets retrieved successfully",
+                            data: [
+                                { id: 1, name: "Iris Dataset", rows: 150, columns: 5, uploaded_at: "2023-07-10T14:30:00Z" },
+                                { id: 2, name: "Diabetes Dataset", rows: 442, columns: 10, uploaded_at: "2023-07-12T09:15:00Z" }
+                            ],
+                            timestamp: new Date().toISOString()
+                        };
+                    } else if (method === 'POST') {
+                        response = {
+                            status: "success",
+                            message: "Dataset created successfully",
+                            data: {
+                                id: 3,
+                                name: "My Dataset",
+                                description: "Sample dataset for testing",
+                                file_path: "/data/sample.csv",
+                                uploaded_at: new Date().toISOString()
+                            },
+                            timestamp: new Date().toISOString()
+                        };
+                    }
+                } else if (url.includes('/models')) {
+                    if (method === 'GET') {
+                        response = {
+                            status: "success",
+                            message: "Models retrieved successfully",
+                            data: [
+                                { id: 1, name: "Iris Classifier", type: "classification", algorithm: "random_forest", accuracy: 0.95 },
+                                { id: 2, name: "Diabetes Regressor", type: "regression", algorithm: "linear_regression", rmse: 45.2 }
+                            ],
+                            timestamp: new Date().toISOString()
+                        };
+                    } else if (method === 'POST') {
+                        response = {
+                            status: "success",
+                            message: "Model created successfully",
+                            data: {
+                                id: 3,
+                                name: "My Model",
+                                type: "classification",
+                                algorithm: "logistic_regression",
+                                status: "untrained"
+                            },
+                            timestamp: new Date().toISOString()
+                        };
+                    }
+                } else if (url.includes('/tutor')) {
+                    response = {
+                        status: "success",
+                        message: "Explanation generated successfully",
+                        data: {
+                            explanation: "Your model appears to be overfitting because the training accuracy is 98% while the validation accuracy is only 75%. This suggests the model has memorized the training data rather than learning general patterns. Try reducing model complexity, increasing regularization, or collecting more diverse training data.",
+                            features: ["age", "income", "education_level"],
+                            confidence: 0.87
+                        },
+                        timestamp: new Date().toISOString()
+                    };
+                } else {
+                    response = {
+                        status: "success",
+                        message: `${method} request to ${url} was successful`,
+                        data: {
+                            method: method,
+                            endpoint: url,
+                            body: body ? JSON.parse(body) : null
+                        },
+                        timestamp: new Date().toISOString()
+                    };
+                }
+                
+                responseArea.textContent = JSON.stringify(response, null, 2);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
