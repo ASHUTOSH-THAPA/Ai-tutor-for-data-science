@@ -22,11 +22,11 @@ This project is an interactive Explainable AI tutor that helps students and data
 Here’s how the tutor looks:
 
 ### Home page
-![Home page](/Users/ashutoshthapa/Documents/Explainable AI Tutor /UI/Wireframe - 1.png)
+![Home page](UI/Wireframe - 1.png)
 
 ### 📂 Dataset Upload
 Upload your CSV dataset and preview its first few rows.
-![Dataset Upload](/Users/ashutoshthapa/Documents/Explainable AI Tutor /UI/Wireframe - 2.png)
+![Dataset Upload](UI/Wireframe - 2.png)
 
 ### 📊 Data Visualization
 Explore your dataset visually:
@@ -34,22 +34,22 @@ Explore your dataset visually:
 - Correlation heatmaps
 - Target distribution (for classification)
 - Feature importance (after model training)
-![Visualization](/Users/ashutoshthapa/Documents/Explainable AI Tutor /UI/Wireframe - 3.png)
+![Visualization](UI/Wireframe - 3.png)
 
 ### ⚙️ Model Training
 Choose Classification, Regression, or Clustering and train your model in one click. 
-![Model Training](/Users/ashutoshthapa/Documents/Explainable AI Tutor /UI/Wireframe - 4.png)
+![Model Training](UI/Wireframe - 4.png)
 
 ### 🔍 Explainable AI (SHAP + LIME)
 Get visual explanations for model predictions to understand *why* your model made certain decisions.
-![Explainable AI](/Users/ashutoshthapa/Documents/Explainable AI Tutor /UI/Wireframe - 5.png)
+![Explainable AI](UI/Wireframe - 5.png)
 
 ### 💬 AI Tutor Chat
 Interact with an LLM-based mentor:
 - "Why is my accuracy low?"
 - "Which features are most important?"
 - "How can I improve my model?"
-![AI Chat](/Users/ashutoshthapa/Documents/Explainable AI Tutor /UI/chatbot.png)
+![AI Chat](UI/chatbot.png)
 
 
 ## 📦 Installation
