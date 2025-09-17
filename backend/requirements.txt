@@ -1,0 +1,40 @@
+# Web framework
+fastapi
+uvicorn[standard]
+
+# Data & ML
+pandas
+numpy
+scikit-learn
+joblib
+
+# Explainability
+shap
+lime
+
+# LLMs / Generative AI
+openai
+langchain
+langchain-community
+langchain-core
+tiktoken
+transformers
+
+# Visualization (optional but recommended)
+matplotlib
+plotly
+seaborn
+
+# Database & ORM
+sqlalchemy
+psycopg2-binary
+
+# Background tasks (optional but recommended for long training jobs)
+celery
+redis
+
+# Utils
+python-multipart  # for file uploads in FastAPI
+pydantic
+jinja2           # for HTML templates
+python-dotenv    # for managing environment variables
