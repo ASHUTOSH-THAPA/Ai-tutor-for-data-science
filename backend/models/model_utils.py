@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder,OneHotEncoder,Ord
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (accuracy_score,precision_score,recall_score,f1_score,
-roc_auc_score,r2_score,mean_squared_error,confusion_matrix,RocCurveDisplay)
+r2_score,mean_squared_error,confusion_matrix,RocCurveDisplay)
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC

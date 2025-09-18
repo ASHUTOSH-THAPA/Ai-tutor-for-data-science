@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Training - Explainable AI Tutor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icons">
+                    <div class="logo-icon"></div>
+                    <div class="logo-icon user"></div>
+                </div>
+                <h2>Explainable AI Tutor</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#data-analysis" class="nav-link">Data Analysis</a>
+                </li>
+                <li class="nav-item">
+                    <a href="training.html" class="nav-link active">Model Training</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#explanation" class="nav-link">Explanation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#visualization" class="nav-link">Visualization</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" onclick="toggleMobileMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Training Page Content -->
+    <main class="training-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Model Training</h1>
+                <p>Configure your task, choose an algorithm, and train a machine learning model.</p>
+            </div>
+
+            <div class="training-grid">
+                <!-- Train Model Section -->
+                <div class="training-card">
+                    <h3>Train Model</h3>
+                    <div class="form-group">
+                        <label for="task">Task</label>
+                        <input type="text" id="task" placeholder="Enter your task">
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text" id="model" placeholder="Select model">
+                    </div>
+                    <div class="form-group">
+                        <label for="cross-validation">Cross-Validation</label>
+                        <input type="text" id="cross-validation" placeholder="Configure cross-validation">
+                    </div>
+                    <button class="train-button" onclick="startTraining()">
+                        <span class="arrow">→</span>
+                        Train
+                    </button>
+                </div>
+
+                <!-- Automation Section -->
+                <div class="training-card">
+                    <h3>Automation</h3>
+                    <div class="slider-group">
+                        <label for="accuracy">Accuracy</label>
+                        <input type="range" id="accuracy" min="0" max="100" value="85" class="slider">
+                        <span class="slider-value">85%</span>
+                    </div>
+                    <div class="slider-group">
+                        <label for="precision">Precision</label>
+                        <input type="range" id="precision" min="0" max="100" value="78" class="slider">
+                        <span class="slider-value">78%</span>
+                    </div>
+                    <div class="slider-group">
+                        <label for="recall">Recall</label>
+                        <input type="range" id="recall" min="0" max="100" value="92" class="slider">
+                        <span class="slider-value">92%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="training-bottom">
+                <!-- Training Process -->
+                <div class="training-card process-card">
+                    <h3>Training Process</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="trainingProgress"></div>
+                        </div>
+                        <span class="progress-text">Training in progress...</span>
+                    </div>
+                </div>
+
+                <!-- Training Summary -->
+                <div class="training-card summary-card">
+                    <h3>Training Summary</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <h4>Accuracy</h4>
+                            <div class="metric-value">85.2%</div>
+                        </div>
+                        <div class="metric-card">
+                            <h4>F1 Score</h4>
+                            <div class="metric-value">0.847</div>
+                        </div>
+                        <div class="metric-card">
+                            <h4>AUC</h4>
+                            <div class="metric-value">0.923</div>
+                        </div>
+                    </div>
+                    <div class="confusion-matrix">
+                        <h4>Confusion Matrix (image)</h4>
+                        <div class="matrix-placeholder">
+                            <span>Matrix visualization will appear here</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Tutor Chatbot -->
+            <div class="chatbot-section">
+                <div class="chatbot-card">
+                    <h3>AI Tutor Chatbot</h3>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-avatar"></div>
+                            <div class="message-content">
+                                Hello! I'm your AI Tutor. I can help explain your model behavior and provide insights about your data.
+                            </div>
+                        </div>
+                        <div class="message user-message">
+                            <div class="message-content">
+                                Why is my model overfitting?
+                            </div>
+                        </div>
+                        <div class="message bot-message">
+                            <div class="message-avatar"></div>
+                            <div class="message-content">
+                                Your model is likely overfitting because complexity is too high for the amount of data - try reducing depth.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" placeholder="Ask a question about your model..." class="chat-input">
+                        <button class="send-button" onclick="sendMessage()">
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
