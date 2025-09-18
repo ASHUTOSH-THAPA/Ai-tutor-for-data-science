@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis - Explainable AI Tutor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icons">
+                    <div class="logo-icon"></div>
+                    <div class="logo-icon user"></div>
+                </div>
+                <h2>Explainable AI Tutor</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="data-analysis.html" class="nav-link active">Data Analysis</a>
+                </li>
+                <li class="nav-item">
+                    <a href="training.html" class="nav-link">Model Training</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#explanation" class="nav-link">Explanation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#visualization" class="nav-link">Visualization</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" onclick="toggleMobileMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Data Analysis Content -->
+    <main class="data-analysis-main">
+        <div class="container">
+            <!-- Header Section -->
+            <div class="page-header">
+                <h1>Data Analysis</h1>
+                <p>Gain insights into your dataset before training a model</p>
+            </div>
+
+            <!-- Analysis Grid -->
+            <div class="analysis-grid">
+                <!-- Summary Statistics -->
+                <div class="analysis-card">
+                    <h3>Summary Statistics</h3>
+                    <div class="chart-placeholder">
+                        <div class="loading-spinner"></div>
+                        <p>Loading statistical summary...</p>
+                    </div>
+                </div>
+
+                <!-- Feature Type -->
+                <div class="analysis-card">
+                    <h3>Feature Type</h3>
+                    <div class="chart-placeholder">
+                        <div class="feature-type-chart">
+                            <div class="feature-bar" data-type="numerical">
+                                <span class="feature-label">Numerical</span>
+                                <div class="feature-progress" style="width: 60%"></div>
+                                <span class="feature-count">12</span>
+                            </div>
+                            <div class="feature-bar" data-type="categorical">
+                                <span class="feature-label">Categorical</span>
+                                <div class="feature-progress" style="width: 40%"></div>
+                                <span class="feature-count">8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Missing Values -->
+                <div class="analysis-card">
+                    <h3>Missing Values</h3>
+                    <div class="chart-placeholder">
+                        <div class="missing-values-chart">
+                            <div class="missing-item">
+                                <span>Age</span>
+                                <div class="missing-bar">
+                                    <div class="missing-fill" style="width: 15%"></div>
+                                </div>
+                                <span>15%</span>
+                            </div>
+                            <div class="missing-item">
+                                <span>Income</span>
+                                <div class="missing-bar">
+                                    <div class="missing-fill" style="width: 8%"></div>
+                                </div>
+                                <span>8%</span>
+                            </div>
+                            <div class="missing-item">
+                                <span>Education</span>
+                                <div class="missing-bar">
+                                    <div class="missing-fill" style="width: 3%"></div>
+                                </div>
+                                <span>3%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class Balance -->
+                <div class="analysis-card">
+                    <h3>Class Balance</h3>
+                    <div class="chart-placeholder">
+                        <div class="class-balance-chart">
+                            <div class="balance-item">
+                                <div class="balance-circle" style="background: conic-gradient(#4F46E5 0deg 216deg, #374151 216deg 360deg)">
+                                    <span>60%</span>
+                                </div>
+                                <span>Class A</span>
+                            </div>
+                            <div class="balance-item">
+                                <div class="balance-circle" style="background: conic-gradient(#06B6D4 0deg 144deg, #374151 144deg 360deg)">
+                                    <span>40%</span>
+                                </div>
+                                <span>Class B</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="bottom-section">
+                <!-- AI Tutor Chatbot -->
+                <div class="chatbot-section">
+                    <h3>AI Tutor Chatbot</h3>
+                    <div class="chatbot-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message bot-message">
+                                <div class="message-avatar bot-avatar"></div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your AI Tutor. I can help explain your model behavior and provide insights about your data.</p>
+                                </div>
+                            </div>
+                            <div class="message user-message">
+                                <div class="message-content">
+                                    <p>Why is my model overfitting?</p>
+                                </div>
+                            </div>
+                            <div class="message bot-message">
+                                <div class="message-avatar bot-avatar"></div>
+                                <div class="message-content">
+                                    <p>Your model is likely overfitting because complexity is too high for the amount of data - try reducing depth.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" placeholder="Ask a question about your model..." />
+                            <button onclick="sendMessage()" class="send-button" aria-label="Send message" title="Send message">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Correlation -->
+                <div class="correlation-section">
+                    <h3>Feature Correlation</h3>
+                    <div class="correlation-container">
+                        <div class="correlation-heatmap">
+                            <div class="heatmap-grid">
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.9)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.3)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.1)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.3)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.9)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.5)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.1)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.5)"></div>
+                                <div class="heatmap-cell" style="background-color: rgba(79, 70, 229, 0.9)"></div>
+                            </div>
+                            <p class="correlation-note">Correlation matrix showing feature relationships</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

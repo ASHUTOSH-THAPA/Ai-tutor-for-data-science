@@ -804,3 +804,399 @@ body {
   background: white;
   border-radius: 50%;
 }
+/* Data Analysis Page Layout */
+.data-analysis-main {
+  padding-top: 100px;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.analysis-card {
+  background: rgba(30, 30, 60, 0.6);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  border-radius: 16px;
+  padding: 30px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.analysis-card:hover {
+  border-color: rgba(79, 70, 229, 0.4);
+  transform: translateY(-2px);
+}
+
+.analysis-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: white;
+  text-align: center;
+}
+
+.chart-placeholder {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #cbd5e1;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(79, 70, 229, 0.3);
+  border-top: 3px solid #4f46e5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Feature Type Chart */
+.feature-type-chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature-label {
+  min-width: 80px;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.feature-progress {
+  flex: 1;
+  height: 8px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.feature-count {
+  min-width: 30px;
+  color: #4f46e5;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Missing Values Chart */
+.missing-values-chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.missing-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.missing-item span:first-child {
+  min-width: 80px;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.missing-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(15, 15, 35, 0.8);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.missing-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transition: width 0.5s ease;
+}
+
+.missing-item span:last-child {
+  min-width: 40px;
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Class Balance Chart */
+.class-balance-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.balance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.balance-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  position: relative;
+}
+
+.balance-item span:last-child {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Bottom Section Layout */
+.bottom-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.chatbot-section,
+.correlation-section {
+  background: rgba(30, 30, 60, 0.6);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  border-radius: 16px;
+  padding: 30px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.chatbot-section h3,
+.correlation-section h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: white;
+}
+
+/* Chatbot Container */
+.chatbot-container {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 10px;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(15, 15, 35, 0.5);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(79, 70, 229, 0.5);
+  border-radius: 3px;
+}
+
+.message {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.message.user-message {
+  justify-content: flex-end;
+}
+
+.message.user-message .message-content {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.bot-avatar {
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+}
+
+.message-content {
+  background: rgba(15, 15, 35, 0.8);
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 70%;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+#chatInput {
+  flex: 1;
+  padding: 12px 16px;
+  background: rgba(15, 15, 35, 0.8);
+  border: 1px solid rgba(79, 70, 229, 0.3);
+  border-radius: 25px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+#chatInput:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+#chatInput::placeholder {
+  color: #64748b;
+}
+
+.send-button {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.send-button:hover {
+  transform: scale(1.05);
+}
+
+.send-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Feature Correlation */
+.correlation-container {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.correlation-heatmap {
+  text-align: center;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.heatmap-cell {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.1);
+}
+
+.correlation-note {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Responsive Design for Data Analysis */
+@media (max-width: 768px) {
+  .analysis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-section {
+    grid-template-columns: 1fr;
+  }
+
+  .class-balance-chart {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .feature-bar,
+  .missing-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .feature-progress,
+  .missing-bar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .analysis-card {
+    padding: 20px;
+  }
+
+  .chatbot-container {
+    height: 300px;
+  }
+
+  .heatmap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .heatmap-cell {
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -143,6 +143,60 @@ function updateMetrics() {
   }
 }
 
+// Data Analysis Page Functions
+function initializeDataAnalysis() {
+  console.log("[v0] Initializing data analysis page")
+
+  // Animate feature type bars
+  setTimeout(() => {
+    const featureBars = document.querySelectorAll(".feature-progress")
+    featureBars.forEach((bar) => {
+      const width = bar.style.width
+      bar.style.width = "0%"
+      setTimeout(() => {
+        bar.style.width = width
+      }, 500)
+    })
+  }, 500)
+
+  // Animate missing values bars
+  setTimeout(() => {
+    const missingBars = document.querySelectorAll(".missing-fill")
+    missingBars.forEach((bar) => {
+      const width = bar.style.width
+      bar.style.width = "0%"
+      setTimeout(() => {
+        bar.style.width = width
+      }, 300)
+    })
+  }, 1000)
+
+  // Animate class balance circles
+  setTimeout(() => {
+    const balanceCircles = document.querySelectorAll(".balance-circle")
+    balanceCircles.forEach((circle) => {
+      circle.style.transform = "scale(0)"
+      setTimeout(() => {
+        circle.style.transform = "scale(1)"
+        circle.style.transition = "transform 0.5s ease"
+      }, 200)
+    })
+  }, 1500)
+
+  // Initialize heatmap hover effects
+  const heatmapCells = document.querySelectorAll(".heatmap-cell")
+  heatmapCells.forEach((cell, index) => {
+    cell.addEventListener("mouseenter", () => {
+      cell.style.boxShadow = "0 4px 20px rgba(79, 70, 229, 0.5)"
+    })
+
+    cell.addEventListener("mouseleave", () => {
+      cell.style.boxShadow = "none"
+    })
+  })
+}
+
+// Enhanced sendMessage function for data analysis context
 function sendMessage() {
   const chatInput = document.getElementById("chatInput")
   const chatMessages = document.getElementById("chatMessages")
@@ -163,13 +217,34 @@ function sendMessage() {
   // Clear input
   chatInput.value = ""
 
-  // Simulate bot response
+  // Simulate bot response with data analysis context
   setTimeout(() => {
     const botMessage = document.createElement("div")
     botMessage.className = "message bot-message"
+
+    // Generate contextual responses based on common data analysis questions
+    let response = "That's a great question! "
+
+    if (message.toLowerCase().includes("missing") || message.toLowerCase().includes("null")) {
+      response +=
+        "I can see you have some missing values in your dataset. The Age column has 15% missing data - you might want to consider imputation strategies like mean/median filling or using algorithms that handle missing values naturally."
+    } else if (message.toLowerCase().includes("balance") || message.toLowerCase().includes("class")) {
+      response +=
+        "Your dataset shows a 60-40 class distribution. This is reasonably balanced, but you might still want to consider techniques like stratified sampling during train-test split to maintain this ratio."
+    } else if (message.toLowerCase().includes("correlation") || message.toLowerCase().includes("feature")) {
+      response +=
+        "The correlation heatmap shows some interesting relationships between your features. Look for highly correlated features (>0.8) as they might be redundant and could benefit from feature selection."
+    } else if (message.toLowerCase().includes("overfitting") || message.toLowerCase().includes("overfit")) {
+      response +=
+        "Your model is likely overfitting because complexity is too high for the amount of data - try reducing depth, adding regularization, or collecting more training data."
+    } else {
+      response +=
+        "Based on your data analysis, I'd suggest examining the feature distributions and correlations before proceeding with model training. The missing values in Age and Income columns should be addressed first."
+    }
+
     botMessage.innerHTML = `
-      <div class="message-avatar"></div>
-      <div class="message-content">That's a great question! Based on your model's performance, I'd suggest looking at feature importance and cross-validation results.</div>
+      <div class="message-avatar bot-avatar"></div>
+      <div class="message-content">${response}</div>
     `
     chatMessages.appendChild(botMessage)
 
@@ -200,6 +275,10 @@ document.addEventListener("DOMContentLoaded", () => {
   createParticles()
 
   updateSliderValues()
+
+  if (window.location.pathname.includes("data-analysis") || document.querySelector(".data-analysis-main")) {
+    initializeDataAnalysis()
+  }
 
   // Handle Enter key in chat input
   const chatInput = document.getElementById("chatInput")
